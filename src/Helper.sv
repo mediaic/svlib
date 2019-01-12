@@ -80,6 +80,8 @@ module Broadcast#(parameter N = 2, parameter [N-1:0] ACK_IMM = '0)(
 		dst_rdys = {N{src_rdy}} & ~got;
 		dst_acks_1 = (dst_acks & ~ACK_IMM) | (dst_rdys & ACK_IMM);
 		got_test = got | dst_acks_1;
+	end
+	always_comb begin
 		src_ack = src_rdy && (&got_test);
 		got_w = src_ack ? '0 : got_test;
 	end
@@ -235,10 +237,10 @@ module Deserializer#(
 	assign fin = ISLAST_IF == islast_cond;
 	assign counter_reset = dst_ack && fin;
 	generate if (HOLD_SRC) begin: HoldSourceDataAtLastLoop
+		assign src_ack = dst_ack || load_data;
 		always_comb begin
 			load_data = !fin && src_rdy;
 			dst_rdy = fin && src_rdy;
-			src_ack = dst_ack || load_data;
 		end
 	end else begin: AcceptAllDataBeforeOutput
 		always_comb begin

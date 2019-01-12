@@ -31,7 +31,7 @@ def ToArr(i):
 
 def main():
 	seed = np.random.randint(10000)
-	print(f"Seed for this run is {seed}")
+	print("Seed for this run is {}".format(seed))
 	np.random.seed(seed)
 	N = 100
 	golden = np.random.randint(4, size=(N,2))

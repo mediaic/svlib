@@ -29,7 +29,7 @@ import numpy as np
 
 def main():
 	seed = np.random.randint(10000)
-	print(f"Seed for this run is {seed}")
+	print("Seed for this run is {}".format(seed))
 	np.random.seed(seed)
 	N = 250
 	golden = np.random.randint(100, size=(N,2))

@@ -6,7 +6,7 @@ install:
     - git submodule update --init --recursive
 script:
     - make -s -C nicotb/lib/cpp
-    - make -s PY=python3 VERI="verilator --trace" CFLAGS=-DVCD -C sim
+    - make -s PY=python3 VERI="verilator --trace" EXTRA_CFLAGS=-DVCD -C sim
 branches:
     only:
         - master

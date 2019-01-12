@@ -35,7 +35,7 @@ def ToArr(i):
 
 def main():
 	seed = np.random.randint(10000)
-	print(f"Seed for this run is {seed}")
+	print("Seed for this run is {}".format(seed))
 	np.random.seed(seed)
 	N = 100
 	indat = np.random.randint(1, 256, size=N)

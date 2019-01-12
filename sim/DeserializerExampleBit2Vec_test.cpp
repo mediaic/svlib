@@ -24,8 +24,16 @@
 #include <memory>
 #include <iostream>
 #include "VDeserializerExampleBit2Vec.h"
-#include "verilated_lxt2_c.h"
 #include "nicotb_verilator.h"
+#ifdef VCD
+#include "verilated_vcd_c.h"
+typedef VerilatedVcdC DumpType;
+#define DUMP_SUFFIX ".vcd"
+#else
+#include "verilated_lxt2_c.h"
+typedef VerilatedLxt2C DumpType;
+#define DUMP_SUFFIX ".lxt2"
+#endif
 
 int main()
 {
@@ -34,7 +42,7 @@ int main()
 	constexpr int MAX_SIM_CYCLE = 10000;
 	constexpr int SIM_CYCLE_AFTER_STOP = 2;
 	int n_sim_cycle = MAX_SIM_CYCLE;
-	auto dump_name = "DeserializerExampleBit2Vec.lxt2";
+	auto dump_name = "DeserializerExampleBit2Vec" DUMP_SUFFIX;
 	typedef VDeserializerExampleBit2Vec TopType;
 
 	// Init dut and signals
@@ -54,7 +62,7 @@ int main()
 
 	// Init simulation
 	vluint64_t sim_time = 0;
-	unique_ptr<VerilatedLxt2C> tfp(new VerilatedLxt2C);
+	unique_ptr<DumpType> tfp(new DumpType);
 	Verilated::traceEverOn(true);
 	TOP->trace(tfp.get(), 99);
 	tfp->open(dump_name);

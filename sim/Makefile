@@ -48,10 +48,10 @@ vec2arr:
 %: MDIR ?= VOBJ_$(TOP)
 %: EXE = V$(TOP)
 %: %_test.cpp $(NICOTB)/cpp/nicotb_verilator.so
-	-test -z "${COMPILE_ONLY}" && $(VERI) -D__EXAMPLES__ $(VERI_FLAGS) -I../src --trace-lxt2 -cc ../src/$(VF_PATH) \
+	-test -z "${COMPILE_ONLY}" && $(VERI) -D__EXAMPLES__ $(VERI_FLAGS) -I../src -cc ../src/$(VF_PATH) \
 	 --exe $@_test.cpp $(NICOTB)/cpp/nicotb_verilator.so \
 	 --Mdir $(MDIR) --top-module $(TOP) -DVERI_TOP_$(TOP) -D__EXAMPLES__\
-	 -CFLAGS "-O1 --std=c++11 $(CFLAGS) $(NPY_CFLAGS) -I$(NICOTB)/cpp"
+	 -CFLAGS "-O1 --std=c++11 $(EXTRA_CFLAGS) $(NPY_CFLAGS) -I$(NICOTB)/cpp"
 	make $(MKFLAG) -C $(MDIR) -f $(EXE).mk
 	GLOG_logtostderr=1 \
 	GLOG_minloglevel=1 \

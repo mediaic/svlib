@@ -1,0 +1,3 @@
+[submodule "nicotb"]
+	path = nicotb
+	url = https://github.com/johnjohnlin/nicotb.git
